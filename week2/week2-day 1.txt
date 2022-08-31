@@ -1,0 +1,126 @@
+1.printing the values printf and scanf.
+
+#include<stdio.h>
+int main()
+{
+ int a,b,c;
+ printf("enter the three values:");
+ scanf("%d %d %d",&a,&b,&c);
+ printf("%d\n %d\n %d\n",a,b,c);
+ retrun 0;
+}
+
+2.calc marks using if and else condition.
+
+#include<stdio.h>
+int main()
+{
+ int marks;
+ printf("enter the marks:");
+ scanf("%d",&marks);
+ if(marks>=70&&marks<=100)
+{
+ printf("you got distinction");
+}
+else if(marks>=60&&marks>=70)
+{
+ printf("you got first class");
+}
+else if(marks>=50&&marks>=60)
+{
+printf("you got second class");
+}
+else if(marks>=35&&marks>=40)
+{
+printf("average");
+}
+else
+{
+printf("fail);
+}
+return 0;
+}
+
+
+3.calc even and odd using if and else condition.
+
+#include <stdio.h>
+int main()
+{
+int num;
+printf("enter the number:");
+scanf("%d",&num);
+if(num %2==0)
+{
+printf("number is even",num);
+}
+else
+{
+printf("number is odd",num);
+}
+return 0;
+}
+
+
+4.wap for temperature using if and elseif condition.
+
+#include<stdio.h>
+int main()
+{
+int temp;
+printf("enter the temperature");
+scanf("%d",&temp);
+if(temp<0)
+{
+printf("freezing weather");
+}
+else if(temp>=0&&temp<=10)
+{
+printf("very cold weather");
+}
+else if(temp>=10&&temp<=20)
+{
+printf("cold weather");
+}
+else if(temp>=20&&temp<=30)
+{
+printf("normal in temperature");
+}
+else if(temp>=30&&temp<=40)
+{
+printf("its hot");
+}
+retrun o;
+}
+
+5. wap to print operators using switch statement.
+
+
+#include<stdio.h>
+int main()
+{
+float a,b;
+char 'op';
+printf("enter the operator(+,-,*,/)");
+scanf("%c",&op);
+printf("enter the numbers");
+scanf("%f %f",&a,&b);
+switch(op)
+{
+case '+':
+printf("%f+%f=%f",a,b,a+b);
+break;
+case '-':
+printf("%f-%f=%f",a,b,a-b);
+break;
+case '*':
+printf("%f*%f=%f",a,b,a*b);
+break;
+case '/':
+printf("%f/%f=%f",a,b,a/b);
+break;
+default:
+printf("error:invalid operator");
+}
+return 0;
+}
