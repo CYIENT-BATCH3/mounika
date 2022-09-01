@@ -1,0 +1,273 @@
+WAP to read the elements and print the elements using array.
+
+#include <stdio.h>
+
+int main() 
+{
+    int a[10],i,n;  //declaration
+    printf("enter how many number"); //print the numbers
+    scanf("%d",&n); // its store the input numbers
+    printf("enter the elements:"); //print the elements
+    for(i=0;i<n;i++)  //using for loop
+    scanf("%d",&a[i]); //its store the array elements
+    printf("the elements are as below"); //print the elements 
+    for(i=0;i<n;i++) // using for loop
+    printf("\n%d",a[i]); // printing the array elements
+    return 0;
+}
+WAP to print the 1D array.
+#include <stdio.h>
+
+int main() 
+{
+    int b[]={1,2,3,4,5,6,7,8,9};//initializing array
+    char a[2]={'A','B','C','D','E','F','G','H'};// using characters
+    for(int i=0;i<8;i++) //using for loop
+    {
+        printf("\ncharacters are :%c",a[i]);//printing characters using array
+    }
+    for(int i=0;i<9;i++) //using for loop
+    {
+        printf("\nintegers are :%d",b[i]); // printing integers using array
+    }
+    return 0;
+    
+}
+
+WAP to print 1D array using puts.
+#include <stdio.h>
+
+int main() 
+{
+    int b[]={1,2,3,4,5,6,7,8,9};//initializing array
+    char a[2]={'A','B','C','D','E','F','G','H'};// using characters
+    for(int i=0;i<8;i++) //using for loop
+    {
+        printf("\ncharacters are :%c",a[i]);//printing characters using array
+    }
+    for(int i=0;i<9;i++) //using for loop
+    {
+        printf("\nintegers are :%d",b[i]); // printing integers using array
+    }
+    puts("********");
+    printf("corrosponding value : %d",b[6]);// printing the corrosponding value
+    if(b[6]==7)
+    puts("value is 7");//checking the value
+    else
+    puts("value is not found");// checking the value is found are not
+    
+}
+WAP to print the 2D array.
+#include <stdio.h>
+
+int main() 
+{
+    int a[3][4],i,j,n,m;// initializing
+    printf("enter the array elements");//print the elements
+    scanf("%d %d",&m,&n);// store the m and n values
+    printf("enter the array elements"); // print array elements
+    for(i=0;i<m;i++) // using for loop condition
+    {
+    for(j=0;j<n;j++)
+    {
+        scanf("%d",&a[i][j]);// store the i and j 
+        printf("the array elements are \n");// printing the array elements
+    }
+    }
+        for(i=0;i<m;i++) // using for loop condition
+        {
+        for(j=0;j<n;j++)
+        {
+        printf("%d",a[i][j]);// printing the out put
+        }
+        }
+    
+}
+
+WAP to print the 2D array and find the sum of array elements.
+#include <stdio.h>
+
+int main()
+{
+    int a[2][2],i,j,m,n,sum=0;
+    printf("enter the rows and columns :");//print the rows and columns
+    scanf("%d %d",&m,&n);//store the variables
+    printf("enter the array elements:");// printing the array elements
+    for(i=0;i<m;i++)//using for loop
+    for(j=0;j<n;j++)//using for loop
+    scanf("%d",&a[i][j]);//store the i,j variables
+    for(i=0;i<m;i++)
+    for(j=0;j<n;j++)
+    sum=sum+a[i][j];
+    printf("sum of the array elements:%d",sum);//printing the sum of array
+    return 0;
+    
+}
+WAP to print the 3D array.
+#include <stdio.h>
+
+int main()
+{
+    int a[3][2][2],i,j,k,m,n,o;
+    printf("enter the rows and columns :");//print the rows and columns
+    scanf("%d%d%d",&m,&n,&o);//store the variables
+    printf("enter the array elements:");//print array elements
+    for(i=0;i<m;i++)//using for loop condition
+    {
+     for(j=0;j<n;j++)
+    {
+     for(k=0;k<o;k++)
+     {
+     scanf("%d",&a[i][j][k]);
+     }
+    }
+    }
+    printf("the array elements are \n");//printing the array elements
+    
+    for(i=0;i<m;i++)
+   {
+       puts("\n");
+      for(j=0;j<n;j++)
+      {
+          puts("\n");
+    for(k=0;k<o;k++)
+    {
+     printf("%d ",a[i][j][k]);// printing the elements
+    }} }
+    return 0;
+    
+}
+WAP to print the sizeof array and sum of array elements.
+#include <stdio.h>
+
+int main() 
+{
+    int a[50],n,i,sum=0;
+    
+    printf("enter the elements"); // print the elements
+    scanf("%d",&n); // store the input elements using scanf
+    for(i=0;i<=n;i++) // using for loop condition
+    {
+        sum=sum+a[i];
+        printf("%d\n",sum); // printing output elements
+    }
+    return 0;
+}
+
+vehicle programe.
+#include<stdio.h>
+int main()
+{
+ int i,n,EC=1,HY=2,PU=3,num=100000,plant;//taking 3 plants EC,HY,PU
+printf("enter which plant you want");//print the plant
+scanf("%d",&plant);// store the plant
+printf("enter the number of cars");//printing the number of cars
+scanf("%d",&n)//store the number of cars
+if(plant==EC)//using if statement store the EC plant
+{
+ for(i=0;i<n;i++)// using for loop condition
+ printf("1ECLE10PZYE %d\n",num+i);// print the EC plant
+}
+else if(plant==HY)using else if statement store the HY plant
+{
+ for(i=0;i<n;i++)// using for loop condtion
+ printf("1HYLE10PZYH %d\n",num+i);// print the HY plant
+}
+else if(plant==PU)//using else if statement
+{
+ for(i=0;i<n;i++)//using for loop
+ printf("1PULE10PZYP %d\n",num+i);//printing PU plant
+}
+else
+ printf("invalid");//if condition is fail it prints invalid
+}
+
+vehicle programe .
+#include <stdio.h>
+
+int main() {
+    // declaration of variables
+    char VIN[30];
+    
+     printf("enter the VIN number:");
+     for(int i=0;i<17;i++)
+     {
+     scanf(" %c",&VIN[i]);
+     }
+     
+         if(VIN[10]=='E')
+         {
+             printf("the Vehicle has manufactured from EC plant");//printing the EC plant
+         }
+         else if(VIN[10]=='H')//using else if statement
+         {
+          printf("the Vehicle has manufactured from HY plant");   //printing the HY plant
+         }
+         else if(VIN[10]=='P')// using else if statement
+         {
+          printf("the Vehicle has manufactured from PU plant");  // printing the PU plant 
+         }
+         
+     
+
+    return 0;
+}
+WAP to print sum of all (4x4)matrix.
+#include<stdio.h>
+int main()
+{
+ int a[4][4],i,j,n,sum=0;//variables
+printf("enter the elements %d",16);// print the elements
+for(i=0;i<4;i++)// using for loop
+for(j=0;j<4;j++)//using for loop
+{
+ printf("enter the values");//printing the values
+ scanf("%d",&a[i][j]);// store the array elements
+ sum=sum+a[i][j];//sum the matrix
+}
+}
+printf("%d",sum);// printing the sum
+}
+WAP to print the sum of diagonal elements.
+#include<stdio.h>
+{
+ int a[10][10],i,j,sum=0;
+printf("enter the elements");//printing the elements
+for(i=0;i<4;i++)// using for loop row
+{
+for(j=0;j<4;j++)// using for loop column
+{
+scanf("%d",&a[i][j]);// store the elements
+}}
+for(i=0;i<4;i++)// using for loop
+{
+for(j=0;j<4;j++)
+{
+ if(i==j)
+sum=sum+a[i][j]);for finding sum
+}
+}
+printf("%d",sum);// print the sum of diagonal elements
+}
+  WAP to print the sum of opposite diagonal elements.
+#include<stdio.h>
+{
+ int a[10][10],i,j,sum=0;
+printf("enter the elements");//printing the elements
+for(i=0;i<4;i++)// using for row
+{
+for(j=0;j<4;j++)// using for column
+{
+scanf("%d",&a[i][j]);//reading the values
+}
+}
+for(i=0;i<4;i++)
+{
+for(j=0;j<4;j++)
+{
+if(i+j==4-1)
+sum=sum+a[i][j];//for find the sum
+}
+}
+printf("%d",sum);
+}
