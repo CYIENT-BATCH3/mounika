@@ -1,0 +1,69 @@
+write a C program to print the array elements and arrange the elements in ascending and descending order.
+
+Algorithm:
+start
+get how many array elements you want to print.
+print the given elements.
+perform the condition to print the values in ascending order.
+perform the condition to print the values in descending order.
+stop.
+
+code:
+  
+#include<stdio.h>  //header file
+int main()   //main function
+{ 
+	setbuf(stdout,NULL);
+	int number[10];      //initialize a array variable 
+	int i,j,temp,num;    //initialize four variable names
+	printf("enter number of array elements:");    //enter how many elements you want
+	scanf("%d",&num);    //get the value from user
+	printf("the array elements are ");   
+	for(i=0;i<num;++i)
+	{
+		scanf("%d",&number[i]); //gets the values from user
+	}
+	printf("the array is ");
+	for(i=0;i<num;++i)
+	{
+		printf("%d ",number[i]);  //prints the elements
+	}
+	for(i=0;i<num;++i)
+	{
+		for(j=i+1;j<num;++j)
+		{        
+                        //condition to print the elements in ascending order      
+			if(number[i]>number[j])
+			{
+				temp=number[i];
+				number[i]=number[j];
+				number[j]=temp;
+			}
+		}
+	}
+	printf("\nthe ascending order of given array is ");
+	for(i=0;i<num;++i)
+	{
+		printf("%d ",number[i]);   //sorting in ascending order is done
+	}
+	for(i=0;i<num;++i)
+	{
+		for(j=i+1;j<num;++j)
+		{
+			//condition to print the elements in descending order 
+                         if(number[i]<number[j])
+			{
+				temp=number[i];
+				number[i]=number[j];
+				number[j]=temp;
+			}
+		}
+	}
+	printf("\nthe descending order of given array is ");
+	for(i=0;i<num;i++)
+	{
+		printf("%d ",number[i]);  //sorting in descending order is done
+	}
+
+}
+
