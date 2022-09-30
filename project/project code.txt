@@ -1,0 +1,299 @@
+// PIC18F458 Configuration Bit Settings
+
+// 'C' source line config statements
+
+// CONFIG1H
+#pragma config OSC = HS     // Oscillator Selection bits (HS oscillator with PLL enabled/Clock frequency = (4 x FOSC))
+#pragma config OSCS = OFF      // Oscillator System Clock Switch Enable bit (Oscillator system clock switch option is disabled (main oscillator is source))
+
+// CONFIG2L
+#pragma config PWRT = OFF       // Power-up Timer Enable bit (PWRT disabled)
+#pragma config BOR = OFF         // Brown-out Reset Enable bit (Brown-out Reset enabled)
+#pragma config BORV = 25        // Brown-out Reset Voltage bits (VBOR set to 2.5V)
+
+// CONFIG2H
+#pragma config WDT = OFF        // Watchdog Timer Enable bit (WDT enabled)
+#pragma config WDTPS = 128      // Watchdog Timer Postscale Select bits (1:128)
+
+// CONFIG4L
+#pragma config STVR = OFF        // Stack Full/Underflow Reset Enable bit (Stack Full/Underflow will cause Reset)
+#pragma config LVP = OFF         // Low-Voltage ICSP Enable bit (Low-Voltage ICSP enabled)
+
+// CONFIG5L
+#pragma config CP0 = OFF        // Code Protection bit (Block 0 (000200-001FFFh) not code protected)
+#pragma config CP1 = OFF        // Code Protection bit (Block 1 (002000-003FFFh) not code protected)
+#pragma config CP2 = OFF        // Code Protection bit (Block 2 (004000-005FFFh) not code protected)
+#pragma config CP3 = OFF        // Code Protection bit (Block 3 (006000-007FFFh) not code protected)
+
+// CONFIG5H
+#pragma config CPB = OFF        // Boot Block Code Protection bit (Boot Block (000000-0001FFh) not code protected)
+#pragma config CPD = OFF        // Data EEPROM Code Protection bit (Data EEPROM not code protected)
+
+// CONFIG6L
+#pragma config WRT0 = OFF       // Write Protection bit (Block 0 (000200-001FFFh) not write protected)
+#pragma config WRT1 = OFF       // Write Protection bit (Block 1 (002000-003FFFh) not write protected)
+#pragma config WRT2 = OFF       // Write Protection bit (Block 2 (004000-005FFFh) not write protected)
+#pragma config WRT3 = OFF       // Write Protection bit (Block 3 (006000-007FFFh) not write protected)
+
+// CONFIG6H
+#pragma config WRTC = OFF       // Configuration Register Write Protection bit (Configuration registers (300000-3000FFh) not write protected)
+#pragma config WRTB = OFF       // Boot Block Write Protection bit (Boot Block (000000-0001FFh) not write protected)
+#pragma config WRTD = OFF       // Data EEPROM Write Protection bit (Data EEPROM not write protected)
+
+// CONFIG7L
+#pragma config EBTR0 = OFF      // Table Read Protection bit (Block 0 (000200-001FFFh) not protected from Table Reads executed in other blocks)
+#pragma config EBTR1 = OFF      // Table Read Protection bit (Block 1 (002000-003FFFh) not protected from Table Reads executed in other blocks)
+#pragma config EBTR2 = OFF      // Table Read Protection bit (Block 2 (004000-005FFFh) not protected from Table Reads executed in other blocks)
+#pragma config EBTR3 = OFF      // Table Read Protection bit (Block 3 (006000-007FFFh) not protected from Table Reads executed in other blocks)
+
+// CONFIG7H
+#pragma config EBTRB = OFF      // Boot Block Table Read Protection bit (Boot Block (000000-0001FFh) not protected from Table Reads executed in other blocks)
+
+// #pragma config statements should precede project file includes.
+// Use project enums instead of #define for ON and OFF.
+
+#include <xc.h>                   //headder file for PIC MCU  
+
+/*defining MACROS*/
+#define _XTAL_FREQ 20000000     //to set frequency range upto 20MHZ (to use in delay function)
+#define ENABLE 1                 //MACRO to set as 1
+#define DISABLE 0                //MACRO to set as 0
+#define OUTPUT 0                 //output MACRO
+#define INPUT 1                  //input MACRO
+#define HIGH 1                   //MACRO for high condition
+#define LOW 0                    //MACRO for LOW condition
+#define SWITCH RB4               //MACRO for SWITCH to use RB4 pin
+#define CONFIGURATION_MODE 0x80  //MACRO enabling 7th bit as high to set as configuration mode
+#define NORMAL_MODE 0x08         //MACRO enabling 3rd bit as high to set in transmitting in normal mode
+#define RECEIVE_MODE 0x0E        //MACRO enabling 4th 3rd 2nd bit as high to set in receive mode
+#define ALARM_BUZZER RB1
+#define Security_LED RB0
+
+/*global variable declerations*/
+char data_byte[11];               //array of charecter for buffer
+int count=0;                    //declaring count variable to perform count operation
+
+
+
+/*declaration of all the function*/
+void system_init();
+void CAN_init();
+void set_configuration_mode();
+void set_normal_mode();
+void baud_rate();
+void set_mask();
+void set_filter();
+void can_read();
+void check_status();
+void correct_key_ID();
+void incorrect_key_ID();
+void buzzer_fun();
+
+
+/*MAIN FUNCTION*/
+int main()
+{
+    system_init();
+    CAN_init();
+    baud_rate();
+    set_mask();
+    set_filter();
+     
+    while(1)
+    {
+       
+        
+    }
+    return 0;
+}
+
+
+
+
+
+
+/*INTCON Interrupt control register seting the bits in system initializasion function*/
+void system_init()
+{
+    GIE = ENABLE;                //enabling all unmasked inttrupts
+    PEIE = ENABLE;               //enabling all unmasked peripharal inttrupts
+}
+
+
+
+
+/*CAN initialization function*/
+void CAN_init()
+{
+TRISBbits.RB0=OUTPUT;                //security LED as output
+TRISBbits.RB1=OUTPUT;                //alarm buzzer LED as output
+TRISBbits.RB2=OUTPUT;                //CAN transmitter line as output
+TRISBbits.RB3=INPUT;                 //CAN receiver line as input
+PORTBbits.RB0=LOW;                   //setting security LED as LOW on defualt state
+PORTBbits.RB1=LOW;                   //setting buzzer LED as LOW on defualt state
+//SWITCH=INPUT;      //setting switch as input button
+  RXB0IP =1;        // CAN Receive Buffer 0 Interrupt Priority bit 1 = High priority
+  RXB0IE=1;            // CAN Receive Buffer 0 Interrupt Enable bit 1 = Enable Receive Buffer 0 interrupt
+}
+
+
+
+/*function to set as configuration mode*/
+void set_configuration_mode()
+{
+    CANCON = CONFIGURATION_MODE ;     //register CANCON is setted to configuration mode
+}    
+/*function to set as normal mode*/
+void set_normal_mode()
+{
+    CANCON = NORMAL_MODE ;     //register CANCON is setted to normal mode
+}    
+
+
+
+/*setting buad rate*/
+void baud_rate()
+{
+    set_configuration_mode();    //setting to configuration mode before setting baud rate
+    BRGCON1 = 0XC1;
+    BRGCON2 = 0XAE;
+    BRGCON3 = 0X45;
+    CIOCON = 0X20;
+    set_normal_mode();           //setting back to normal mode after setting baud rate
+}
+
+
+
+/*function to set bits for mask rigister*/
+void set_mask()
+{
+    RXM0SIDH = 0x00;
+    RXM0SIDL = 0x00;
+}
+
+
+
+/*function to set bits for filter register*/
+void set_filter()
+{
+    RXF0SIDH = 0x00;
+    RXF0SIDL = 0x00;
+    RXF1SIDH = 0x00;
+    RXF1SIDL = 0x00;
+}
+
+
+
+/*function defination of interupt*/
+__interrupt() ISR1()
+{
+   // RB0=1;
+    if(PIR3bits.RXB0IF==1)                      //if receive buffer zero has received a new message
+    {
+        PIR3bits.RXB0IF = DISABLE;            //disabling receive buffer with no message
+        can_read();                           //calling read function
+        
+    }
+}
+
+
+
+
+/*function to read the data or ID we have used 0th buffer to receive data*/
+void can_read()
+{
+    CANCON = RECEIVE_MODE ;                 //setting CAN to receive mode to read data
+   // RXB0CON = 0x00;       //setting as low for every bit to make it open to receive message using buffer 0 to receive data
+      /*assigning all the buffer to the character array*/
+      data_byte[0] = RXB0D0;
+      data_byte[1] = RXB0D1;
+      data_byte[2] = RXB0D2;
+      data_byte[3] = RXB0D3;
+      data_byte[4] = RXB0D4;
+      data_byte[5] = RXB0D5;
+      data_byte[6] = RXB0D6;
+      data_byte[7] = RXB0D7;
+      data_byte[8] = RXB0DLC;
+      data_byte[9] = RXB0SIDL;
+      data_byte[10]= RXB0SIDH;
+      RXB0CONbits.RXFUL = 0;               //receive buffer is empty ready to receive data
+      check_status();                      //calling check function
+}
+
+
+
+/*function to check security status */
+
+
+
+void check_status()
+{
+    if(data_byte[9]==0x00 && data_byte[10]==0x03)
+    {
+        correct_key_ID();
+    }
+    else
+    {
+        incorrect_key_ID();
+        buzzer_fun();
+        
+    }
+}
+
+
+
+/*correct key*/
+void correct_key_ID()
+{
+    Security_LED = HIGH;
+    ALARM_BUZZER = HIGH;           //both security LED and ALARM LED is turned on for 1 time to indicate the ID matched
+    __delay_ms(1000);
+    Security_LED = LOW;
+    ALARM_BUZZER = LOW;  
+}
+
+/*incorrect key*/
+void incorrect_key_ID()
+{
+    if(data_byte[9]==0x00 && data_byte[10]==0x03)
+    {
+        count=0;
+    }
+    else
+    {
+        count++; 
+    }
+    
+}
+
+/*BUZZER FUNCTION*/
+void buzzer_fun()
+{
+    if(count==1)
+    {
+        for(int i=0;i<3;i++)
+        {
+            ALARM_BUZZER = HIGH;
+            __delay_ms(1000);
+            ALARM_BUZZER = LOW;
+            __delay_ms(1000);
+        }
+    }
+    else if(count==2)
+    {
+        for(int i=0;i<6;i++)
+        {
+            ALARM_BUZZER = HIGH;
+            __delay_ms(1000);
+            ALARM_BUZZER = LOW;
+            __delay_ms(1000);
+        }
+    }
+    else 
+    {
+        
+            ALARM_BUZZER = HIGH;
+           
+        
+    }
+}
